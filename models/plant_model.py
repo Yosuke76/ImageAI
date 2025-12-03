@@ -27,4 +27,31 @@ def create_plant_classifier(
 ):
     input_size = image_channels * image_height * image_width
     model = PlantClassifier(input_size, num_classes)
-    return model        
+    return model
+
+
+def save_model(model: nn.Module, path: str) -> None:
+    """Saves only the model's state dictionary to the specified path."""
+    torch.save(model.state_dict(), path)
+
+
+def load_model(
+        path: str,
+        num_classes: int,
+        image_channels: int = 3,
+        image_height: int = 64,
+        image_width: int = 64
+) -> nn.Module:
+    """Creates a PlantClassifier model and loads the state dictionary from the specified path."""
+    model = create_plant_classifier(
+        num_classes=num_classes,
+        image_channels=image_channels,
+        image_height=image_height,
+        image_width=image_width
+    )
+    state_dict = torch.load(path, map_location="cpu")
+    model.load_state_dict(torch.load(path))
+    model.eval()  # Set the model to evaluation mode
+    return model
+    
+    
