@@ -25,3 +25,9 @@ Ein Nutzer lädt ein Foto einer Pflanze hoch, und unser Modell gibt die wahrsche
 - **Sonstiges:** Git, virtualenv/conda, ggf. Docker
 
 ---
+## RNN/Transformer für Text
+
+## Custom Trainings-Loops (for epoch in range(...): ...)
+
+
+# test 
