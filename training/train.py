@@ -6,7 +6,7 @@ from models.plant_model import create_resnet_model, save_model
 from data.torchvision import get_dataloaders
 
 criterion = nn.CrossEntropyLoss()
-num_epochs = 10
+num_epochs = 300
 
 def train(
         num_classes: int = 102,
@@ -109,5 +109,4 @@ def evaluate(model: nn.Module, dataloader, criterion, device: torch.device):
 
                                       
 if __name__ == "__main__":
-
     train()            

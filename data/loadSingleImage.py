@@ -32,8 +32,8 @@ def loadSingleImage():
 
     img = Image.open(found_path)
     img.show()
-
-    pred.main(found_path) 
     # execute prediction.py from here with the selected image as param.
+    pred.main(found_path) 
+    
 
 

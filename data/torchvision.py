@@ -87,4 +87,7 @@ def get_dataloaders(batch_size: int = 32):
     test_loader = DataLoader(testDataset, batch_size=batch_size, shuffle=False)
     return train_loader, val_loader, test_loader
 
+def get_flowers_names():
+    return trainDataset.classes
+
 

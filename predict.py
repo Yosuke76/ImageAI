@@ -5,7 +5,7 @@ import sys
 from torchvision.io import read_image
 from pathlib import Path
 from models.plant_model import create_resnet_model
-from data.torchvision import validationFlowersTransforms
+from data.torchvision import validationFlowersTransforms, get_flowers_names
 
 def load_trainied_model(
         weights_path: str = "plant_classifier.pth",
@@ -54,6 +54,7 @@ def predict_image(
         image_path:str,
         weights_path: str = "plant_classifier.pth",   #loads model and image for prediction and returns predicted class index.
         num_classes: int = 102,
+        
 
 ):
     
@@ -80,17 +81,20 @@ def predict_image(
 
     pred_idx = pred_idx.item()
     confidence = confidence.item()
-
-    print(f"Predicted class index: {pred_idx}")
-    print(f"Confidence: {confidence:.4f}") 
+    
+    class_names = get_flowers_names()
+    if 0 <= pred_idx < len(class_names):
+        class_name = class_names[pred_idx]
+    else:
+        class_name = f"Unbekannte Klasse (Index {pred_idx})"
+ 
+    print("\n=== Vorhersage ===")
+    print(f"Klasse: {class_name}")
+    print(f"Index: {pred_idx}")
+    print(f"Confidence: {confidence:.4f}")
 
 
 def main(image):
-    # if len(sys.argv) < 2:
-    #     print("Usage:")
-    #     print(" python predict.py pfad\\zu\\bild.jpg")
-    #     sys.exit(1)
-
     predict_image(image) 
 
 
