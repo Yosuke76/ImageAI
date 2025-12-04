@@ -13,7 +13,7 @@ def train(
         num_classes: int = 102,
         batch_size: int = 32,
         learning_rate: float = 1e-3,
-        model_out_path: str = "model/plant_classifier.pth",
+        model_out_path: str = "models/plant_classifier.pth",
         resume: bool = True,
 ):
     """
