@@ -1,28 +1,41 @@
 import os
+from sympy import N
 import torch 
 import torch.nn as nn
 import torch.optim as optim
+import random
+import numpy as np
 
 from models.plant_model import create_resnet_model, save_model, load_model
 from data.torchvision import get_dataloaders
+from config import NUM_CLASSES, BATCH_SIZE, LEARNING_RATE, NUM_EPOCHS, SEED, MODEL_PATH
+
+def set_seed(seed: int) -> None:
+    print(f"Setting random seed to {seed}")
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
 
 Green = "\033[32m"
 RESET = "\033[0m"
 
 criterion = nn.CrossEntropyLoss()
-num_epochs = 1 
+# num_epochs = 1 
 
 def train(
-        num_classes: int = 102,
-        batch_size: int = 32,
-        learning_rate: float = 1e-3,
-        model_out_path: str = "models/plant_classifier.pth",
+        num_classes: int = NUM_CLASSES,
+        batch_size: int = BATCH_SIZE,
+        learning_rate: float = LEARNING_RATE,
+        model_out_path: str = MODEL_PATH,
         resume: bool = True,
 ):
     """
     train the ResNet model on the Flowers102 dataset and save the weights to a file.
     
     """
+    set_seed(SEED)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"{Green}Using device: {device}{RESET}")
@@ -53,7 +66,7 @@ def train(
     )
 
     # Training loop
-    for epoch in range(1, num_epochs +1):
+    for epoch in range(1, NUM_EPOCHS +1):
         model.train()
         running_loss = 0.0
         correct = 0
