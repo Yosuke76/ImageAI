@@ -6,6 +6,9 @@ import torch.optim as optim
 from models.plant_model import create_resnet_model, save_model, load_model
 from data.torchvision import get_dataloaders
 
+Green = "\033[32m"
+RESET = "\033[0m"
+
 criterion = nn.CrossEntropyLoss()
 num_epochs = 1 
 
@@ -22,7 +25,7 @@ def train(
     """
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
+    print(f"{Green}Using device: {device}{RESET}")
 
     # Load dataloaders
     train_loader, val_loader, _ = get_dataloaders(batch_size=batch_size)
@@ -42,8 +45,6 @@ def train(
         model = create_resnet_model(num_classes=num_classes, pretrained=True)
         model.to(device)
 
-    
-    
 
     #optimize trainable parameters only
     optimizer = optim.Adam(
@@ -58,7 +59,7 @@ def train(
         correct = 0
         total = 0
 
-        print(f"\n=== Epoche {epoch}/{num_epochs} ===")
+        print(f"{Green}\n=== Epoche {epoch}/{num_epochs} ==={RESET}")
 
         for batch_idx, (images, labels) in enumerate(train_loader, start=1):
             images = images.to(device)
