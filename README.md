@@ -103,3 +103,4 @@ Ein Nutzer lädt ein Foto einer Pflanze hoch, und unser Modell gibt die wahrsche
 ║ 0) Exit                          ║
 ╚══════════════════════════════════╝
 
+1 - 
