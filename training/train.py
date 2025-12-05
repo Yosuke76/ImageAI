@@ -7,7 +7,7 @@ import numpy as np
 
 from models.plant_model import create_resnet_model, save_model, load_model
 from data.torchvision import get_dataloaders
-from config import NUM_CLASSES, BATCH_SIZE, LEARNING_RATE, NUM_EPOCHS, SEED, MODEL_PATH
+from config import NUM_CLASSES, BATCH_SIZE, LEARNING_RATE, NUM_EPOCHS, SEED, MODEL_PATH, DEVICE
 
 def set_seed(seed: int) -> None:
     print(f"Setting random seed to {seed}")
@@ -36,7 +36,7 @@ def train(
     """
     set_seed(SEED)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = DEVICE
     print(f"{Green}Using device: {device}{RESET}")
 
     # Load dataloaders
